@@ -1,5 +1,6 @@
-import 'package:chatclient/utils/viewModel/viewModel.dart';
 import 'package:flutter/widgets.dart';
+import 'viewModel.dart';
+
 
 class ViewModelPropertyWidgetBuilder<TPropertyType>
     extends StreamBuilder<PropertyChangedEvent> {
@@ -8,10 +9,10 @@ class ViewModelPropertyWidgetBuilder<TPropertyType>
   // Methods
 
   ViewModelPropertyWidgetBuilder(
-      {Key key,
-      @required ViewModel viewModel,
-      @required String propertyName,
-      @required AsyncWidgetBuilder<PropertyChangedEvent> builder})
+      {Key? key,
+      required ViewModel viewModel,
+      required String propertyName,
+      required AsyncWidgetBuilder<PropertyChangedEvent> builder})
       : super(
             key: key,
             builder: builder,

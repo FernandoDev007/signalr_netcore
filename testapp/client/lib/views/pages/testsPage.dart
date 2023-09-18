@@ -10,7 +10,7 @@ class TestsPage extends StatelessWidget {
 
 // Methods
 
-  TestsPage({Key key}) : super(key: key);
+  TestsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
