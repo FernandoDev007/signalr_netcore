@@ -24,7 +24,7 @@ class ChatMessage {
 class ChatPageViewModel extends ViewModel {
 // Properties
   late String _serverUrl;
-  late HubConnection _hubConnection;
+  late HubConnection? _hubConnection;
   late Logger _logger;
   late StreamSubscription<LogRecord> _logMessagesSub;
 
@@ -37,14 +37,14 @@ class ChatPageViewModel extends ViewModel {
   bool get connectionIsOpen => _connectionIsOpen;
   set connectionIsOpen(bool value) {
     updateValue(connectionIsOpenPropName, _connectionIsOpen, value,
-        (v) => _connectionIsOpen = v as bool);
+        (v) => _connectionIsOpen = v);
   }
 
   late String _userName;
   static const String userNamePropName = "userName";
   String get userName => _userName;
   set userName(String value) {
-    updateValue(userNamePropName, _userName, value, (v) => _userName = v as String);
+    updateValue(userNamePropName, _userName, value, (v) => _userName = v);
   }
 
 // Methods
@@ -91,20 +91,20 @@ class ChatPageViewModel extends ViewModel {
           .withAutomaticReconnect(retryDelays: [2000, 5000, 10000, 20000])
           .configureLogging(logger)
           .build();
-      _hubConnection.onclose(({error}) => connectionIsOpen = false);
-      _hubConnection.onreconnecting(({error}) {
+      _hubConnection!.onclose(({error}) => connectionIsOpen = false);
+      _hubConnection!.onreconnecting(({error}) {
         print("onreconnecting called");
         connectionIsOpen = false;
       });
-      _hubConnection.onreconnected(({connectionId}) {
+      _hubConnection!.onreconnected(({connectionId}) {
         print("onreconnected called");
         connectionIsOpen = true;
       });
-      _hubConnection.on("OnMessage", _handleIncommingChatMessage);
+      _hubConnection!.on("OnMessage", _handleIncommingChatMessage);
     }
 
-    if (_hubConnection.state != HubConnectionState.Connected) {
-      await _hubConnection.start();
+    if (_hubConnection!.state != HubConnectionState.Connected) {
+      await _hubConnection!.start();
       connectionIsOpen = true;
     }
   }
@@ -114,7 +114,7 @@ class ChatPageViewModel extends ViewModel {
       return;
     }
     await openChatConnection();
-    _hubConnection.invoke("Send", args: <Object>[userName, chatMessage]);
+    _hubConnection!.invoke("Send", args: <Object>[userName, chatMessage]);
   }
 
   void _handleIncommingChatMessage(List<Object?>? args) {

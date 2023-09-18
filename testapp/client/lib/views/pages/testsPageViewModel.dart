@@ -18,7 +18,7 @@ class TestsPageViewModel extends ViewModel {
   late StreamSubscription<LogRecord> _logMessagesSub;
   late Tests _tests;
   late String _serverUrl;
-  late HubConnection _hubConnection;
+  late HubConnection? _hubConnection;
 
   late String _errorMessage;
   static const String errorMessagePropName = "errorMessage";
@@ -76,15 +76,15 @@ class TestsPageViewModel extends ViewModel {
           .withAutomaticReconnect()
           .configureLogging(logger)
           .build();
-      _hubConnection.onclose(({error}) => _logger.info("Connection Closed"));
+      _hubConnection!.onclose(({error}) => _logger.info("Connection Closed"));
     }
 
-    if (_hubConnection.state != HubConnectionState.Connected) {
-      await _hubConnection.start();
-      _logger.info("Connection state '${_hubConnection.state}'");
+    if (_hubConnection!.state != HubConnectionState.Connected) {
+      await _hubConnection!.start();
+      _logger.info("Connection state '${_hubConnection!.state}'");
     }
 
-    return _hubConnection;
+    return _hubConnection!;
   }
 
   Future<void> connect() async {

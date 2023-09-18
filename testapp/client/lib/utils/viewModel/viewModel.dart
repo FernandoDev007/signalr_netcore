@@ -48,7 +48,7 @@ abstract class ViewModel {
 
   Stream<PropertyChangedEvent> whenPropertiesChanged(
       List<String> propertyNames) {
-    assert(propertyNames != null || propertyNames.length != 0);
+    assert(propertyNames.length != 0);
 
     return propertyChanges
         .where((event) =>
@@ -61,7 +61,7 @@ abstract class ViewModel {
   }
 
   Stream<void> whenPropertiesChangedHint(List<String> propertyNames) {
-    assert(propertyNames != null || propertyNames.length != 0);
+    assert(propertyNames.length != 0);
 
     return propertyChanges
         .where((event) =>
