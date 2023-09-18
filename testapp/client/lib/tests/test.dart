@@ -14,7 +14,7 @@ abstract class Test extends ViewModel {
 
   final String description;
 
-  bool _isExecuting;
+  late  bool _isExecuting;
   static const String isExecutingPropName = "isExecuting";
   bool get isExecuting => _isExecuting;
   set isExecuting(bool value) {
@@ -22,7 +22,7 @@ abstract class Test extends ViewModel {
         isExecutingPropName, _isExecuting, value, (v) => _isExecuting = v);
   }
 
-  String _errorMessage;
+  late String _errorMessage;
   static const String errorMessagePropName = "errorMessage";
   String get errorMessage => _errorMessage;
   set errorMessage(String value) {
@@ -34,10 +34,7 @@ abstract class Test extends ViewModel {
 
   Test(HubConnectionProvider hubConnectionProvider, Logger logger,
       String description)
-      : assert(hubConnectionProvider != null),
-        assert(logger != null),
-        assert(description != null),
-        _hubConnectionProvider = hubConnectionProvider,
+      : _hubConnectionProvider = hubConnectionProvider,
         this.logger = logger,
         description = description;
 

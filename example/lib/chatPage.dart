@@ -8,7 +8,7 @@ class ChatPage extends StatelessWidget {
 
 // Methods
 
-  ChatPage({Key key}) : super(key: key);
+  ChatPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

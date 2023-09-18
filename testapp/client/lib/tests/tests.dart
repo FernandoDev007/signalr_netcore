@@ -12,7 +12,7 @@ import 'package:logging/logging.dart';
 
 class Tests {
   // Properties
-  List<Test> _items;
+  late List<Test> _items;
 
   // Methods
   List<Test> get items => _items;

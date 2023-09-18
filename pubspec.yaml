@@ -6,6 +6,8 @@ homepage: https://github.com/sefidgaran/signalr_client
 environment:
   sdk: ">=2.12.0 <4.0.0"
 
+publish_to: none
+
 dependencies:
   flutter:
     sdk: flutter
@@ -13,9 +15,12 @@ dependencies:
   logging: ^1.2.0
   tuple: ^2.0.2
   web_socket_channel: ^2.4.0
-  sse_channel: ^0.0.3
+  sse_channel:
+    git:
+      url: https://github.com/jamiewest/sse_channel.git
+      ref: main
   message_pack_dart: ^2.0.1
-  http: ^0.13.6
+  http: ^1.1.0
 
 dev_dependencies:
   test: ^1.16.2

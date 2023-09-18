@@ -22,7 +22,7 @@ class ClientMethodComplexParameterComplexReturnValue extends Test {
         "MethodWithComplexParameterAndComplexReturnValue",
         args: <Object>[reqParam]);
     //args: <Object>[reqParam.toJson()]); //Convert object to map for msgpack
-    var resultObj = ComplexReturnValue.fromJson(jsonResult);
+    var resultObj = ComplexReturnValue.fromJson(jsonResult as Map<String, dynamic>);
     logger.info("Result: '$resultObj");
   }
 }
@@ -32,8 +32,8 @@ class ComplexInParameter {
   String lastName;
 
   ComplexInParameter({
-    this.firstName,
-    this.lastName,
+    required this.firstName,
+    required this.lastName,
   });
 
   Map<String, dynamic> toJson() => {
@@ -47,7 +47,11 @@ class ComplexReturnValue {
   String lastName;
   String greetingText;
 
-  ComplexReturnValue({this.firstName, this.lastName, this.greetingText});
+  ComplexReturnValue({
+    required this.firstName,
+    required this.lastName,
+    required this.greetingText
+  });
 
   factory ComplexReturnValue.fromJson(Map<String, dynamic> json) {
     return ComplexReturnValue(

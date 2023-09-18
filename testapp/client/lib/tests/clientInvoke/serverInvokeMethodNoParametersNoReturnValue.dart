@@ -25,7 +25,7 @@ class ServerInvokeMethodNoParametersNoReturnValue extends Test {
   }
 
   void _handleServerInvokeMethodNoParametersNoReturnValue(
-      List<Object> parameters) {
+      List<Object?>? parameters) {
     logger.info(
         "From Callback: Server invoked method 'ServerInvokeMethodNoParametersNoReturnValue'");
   }

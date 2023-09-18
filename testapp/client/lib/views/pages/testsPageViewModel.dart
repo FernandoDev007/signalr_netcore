@@ -14,13 +14,13 @@ typedef HubConnectionProvider = Future<HubConnection> Function();
 
 class TestsPageViewModel extends ViewModel {
 // Properties
-  Logger _logger;
-  StreamSubscription<LogRecord> _logMessagesSub;
-  Tests _tests;
-  String _serverUrl;
-  HubConnection _hubConnection;
+  late Logger _logger;
+  late StreamSubscription<LogRecord> _logMessagesSub;
+  late Tests _tests;
+  late String _serverUrl;
+  late HubConnection? _hubConnection;
 
-  String _errorMessage;
+  late String _errorMessage;
   static const String errorMessagePropName = "errorMessage";
   String get errorMessage => _errorMessage;
   set errorMessage(String value) {
@@ -28,7 +28,7 @@ class TestsPageViewModel extends ViewModel {
         errorMessagePropName, _errorMessage, value, (v) => _errorMessage = v);
   }
 
-  List<LogRecord> _hubLogMessages;
+  late List<LogRecord> _hubLogMessages;
   static const String hubLogMessagesPropName = "hubLogMessages";
   List<LogRecord> get hubLogMessages => _hubLogMessages;
 
@@ -76,15 +76,15 @@ class TestsPageViewModel extends ViewModel {
           .withAutomaticReconnect()
           .configureLogging(logger)
           .build();
-      _hubConnection.onclose(({error}) => _logger.info("Connection Closed"));
+      _hubConnection!.onclose(({error}) => _logger.info("Connection Closed"));
     }
 
-    if (_hubConnection.state != HubConnectionState.Connected) {
-      await _hubConnection.start();
-      _logger.info("Connection state '${_hubConnection.state}'");
+    if (_hubConnection!.state != HubConnectionState.Connected) {
+      await _hubConnection!.start();
+      _logger.info("Connection state '${_hubConnection!.state}'");
     }
 
-    return _hubConnection;
+    return _hubConnection!;
   }
 
   Future<void> connect() async {
@@ -104,12 +104,12 @@ class TestsPageViewModelProvider extends ViewModelProvider<TestsPageViewModel> {
 
   // Methods
   TestsPageViewModelProvider(
-      {Key key, viewModel = TestsPageViewModel, WidgetBuilder childBuilder})
-      : super(key: key, viewModel: viewModel, childBuilder: childBuilder);
+      {Key? key, viewModel = TestsPageViewModel, required WidgetBuilder childBuilder})
+      : super(key: key ?? UniqueKey(), viewModel: viewModel, childBuilder: childBuilder);
 
   static TestsPageViewModel of(BuildContext context) {
     return context
         .dependOnInheritedWidgetOfExactType<TestsPageViewModelProvider>()
-        .viewModel;
+        !.viewModel;
   }
 }
